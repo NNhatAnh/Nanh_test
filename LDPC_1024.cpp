@@ -69,11 +69,12 @@ Matrix mat_mult(const Matrix& A, const Matrix& B) {
     return C;
 }
 
+// Sai ở đây
 Matrix mat_inv(Matrix A) {
     int n = A.size();
     Matrix I = identity_matrix(n);
     for (int i = 0; i < n; ++i) {
-        if (A[i][i] == 1) {
+        if (A[i][i] == 0) {
             bool found = false;
             for (int j = i + 1; j < n; ++j) {
                 // cout << "A["<<j<<"]["<<i<<"] = "<<A[j][i]<<endl;
@@ -90,6 +91,9 @@ Matrix mat_inv(Matrix A) {
             } else {
                 cout<< "Matrix invertible success";
             }
+        } else {
+            cout<<"A[i][i] invalid";
+            exit(1);
         }
         for (int j = 0; j < n; ++j) {
             if (i != j && A[j][i]) {
@@ -133,6 +137,7 @@ void build_H_irig106(Matrix& H) {
 void build_G_from_H(const Matrix& H, Matrix& G) {
     cout<<"Matrix G" <<endl;
     Matrix P(2 * M, vector<int>(2 * M)), Q(2 * M, vector<int>(2 * M));
+
     for (int i = 0; i < 2 * M; ++i)
         for (int j = 0; j < 2 * M; ++j) {
             Q[i][j] = H[i][j];
